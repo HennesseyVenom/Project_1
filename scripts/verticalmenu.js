@@ -23,7 +23,7 @@ const productArray = [
 
 //
 document.addEventListener("DOMContentLoaded", function () {
-  const menu = document.getElementById("vertical-menu");
+  const menu = document.getElementById("verticalMenu");
   productArray.map((product) => {
     const a = document.createElement("a");
     a.setAttribute("href", "#");
@@ -171,11 +171,19 @@ const generateItem = (productList) => {
     grid.removeChild(grid.firstChild);
   }
   productList.map((product) => {
-    var b = genereateHTMLElement("b");
-    var textnode = document.createTextNode("ADD");
-    b.appendChild(textnode);
-    const button = genereateHTMLElement("button");
-    button.appendChild(b);
+    var addItem = genereateHTMLElement("img");
+    addItem.setAttribute("src", "./assets/add.png");
+    addItem.setAttribute("height", "25px");
+    addItem.setAttribute("width", "25px");
+    addItem.setAttribute("id", "addItem");
+    addItem.setAttribute("title", product.name);
+
+    var removeItem = genereateHTMLElement("img");
+    removeItem.setAttribute("src", "./assets/minus.png");
+    removeItem.setAttribute("height", "25px");
+    removeItem.setAttribute("width", "25px");
+    removeItem.setAttribute("id", "deleteItem");
+    removeItem.setAttribute("title", product.name);
 
     const p1 = genereateHTMLElement("p");
     const s = genereateHTMLElement("s");
@@ -209,6 +217,11 @@ const generateItem = (productList) => {
     b.appendChild(textnode);
     div1.appendChild(textnode);
 
+    const cart = genereateHTMLElement("div");
+    cart.setAttribute("class", "cart-buttons");
+    cart.appendChild(addItem);
+    cart.appendChild(removeItem);
+
     const div2 = genereateHTMLElement("div");
     div2.setAttribute("class", "card");
     div2.appendChild(div1);
@@ -217,11 +230,65 @@ const generateItem = (productList) => {
     div2.appendChild(p3);
     div2.appendChild(p2);
     div2.appendChild(p1);
-    div2.appendChild(button);
+    div2.appendChild(cart);
+
     const div3 = genereateHTMLElement("div");
     div3.setAttribute("class", "item");
     div3.appendChild(div2);
 
     grid.appendChild(div3);
   });
+};
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.addEventListener("click", (e) => {
+    if (e.target.id === "addItem") {
+      const productDetails = allProducts.find(
+        (product) => product.name === e.target.title
+      );
+      updateCart(productDetails, "add");
+    }
+  });
+  document.addEventListener("click", (e) => {
+    if (e.target.id === "deleteItem") {
+      const productDetails = allProducts.find(
+        (product) => product.name === e.target.title
+      );
+      // console.log("removeWorking!");
+      updateCart(productDetails, "remove");
+    }
+  });
+});
+
+const updateCart = (product, updateType) => {
+  var cartList = JSON.parse(localStorage.getItem("cartList")) || [];
+
+  const isPresent = cartList.find((p) => p.product.name === product.name);
+  if (isPresent) {
+    cartList.map((p) => {
+      if (p.product.name === product.name) {
+        if (updateType == "remove") {
+          p.qty = Math.max(p.qty - 1, 0);
+        } else {
+          p.qty = p.qty + 1;
+        }
+      }
+      return p;
+    });
+  } else {
+    if (updateType == "add") {
+      const cartObject = {
+        product: product,
+        qty: 1,
+      };
+      cartList.push(cartObject);
+    }
+  }
+
+  cartList = cartList.filter((p) => p.qty != 0);
+  updateLocalStorage(cartList);
+};
+
+const updateLocalStorage = (data) => {
+  localStorage.setItem("cartList", JSON.stringify(data));
 };

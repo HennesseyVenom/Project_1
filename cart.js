@@ -4,6 +4,16 @@ function genereateHTMLElement(elementType) {
   return document.createElement(elementType);
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  const clearCart = document.getElementById("clearCart");
+
+  clearCart.addEventListener("click", () => {
+    cartList = [];
+    updateLocalStorage(cartList);
+    location.reload();
+  });
+});
+
 const generateItem = (productList) => {
   const grid = document.getElementById("grid-container");
 
@@ -12,7 +22,7 @@ const generateItem = (productList) => {
   }
   productList.map((item) => {
     var b = genereateHTMLElement("b");
-    var textnode = document.createTextNode(item.quantity);
+    var textnode = document.createTextNode(item.qty);
     b.appendChild(textnode);
     const button = genereateHTMLElement("button");
     button.appendChild(b);
@@ -67,3 +77,7 @@ const generateItem = (productList) => {
 };
 
 generateItem(cartList);
+
+const updateLocalStorage = (data) => {
+  localStorage.setItem("cartList", JSON.stringify(data));
+};

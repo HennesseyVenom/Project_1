@@ -113,7 +113,7 @@ main {
   color: black;
 }
 
-.card img {
+.card > div > img {
   margin-left: 95px;
 }
 
@@ -162,4 +162,12 @@ main {
 }
 .cart-container > .grid-container {
   float: left;
+}
+.cart-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-buttons img {
+  cursor: pointer;
 }
