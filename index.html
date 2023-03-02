@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="title">
+      <div class="logo">Blink<span>it</span></div>
+
+      <div class="title-select">
+        <label for="delivery area"><b>Delivery in 10 mins:</b></label>
+        <select name="delivery area" id="deliveryarea">
+          <option value="delivery area">banglore</option>
+          <option value="delivery area">lucknow</option>
+
+          <option value="delivery area">hyderabad</option>
+          <option value="delivery area">delhi</option>
+        </select>
+      </div>
+      <div>
+        <button class="button1">login</button>
+        <a href="./cart.html">
+          <button class="button">My cart</button>
+        </a>
+      </div>
+    </div>
+
+    <ul class="navBar" id="navBar">
+      <li>
+        <label for="more"><b>more</b></label>
+        <select name="items" id="items">
+          <option value="items">a</option>
+          <option value="items">b</option>
+
+          <option value="items">c</option>
+          <option value="items">d</option>
+        </select>
+      </li>
+    </ul>
+
+    <main>
+      <div class="vertical-menu" id="verticalMenu">
+        <a href="#" class="active" id="all">All</a>
+      </div>
+
+      <div class="grid-container" id="grid-container"></div>
+    </main>
+    <script src="./scripts/verticalmenu.js" type="text/javascript"></script>
+    <script src="./scripts/navBar.js" type="text/javascript"></script>
+  </body>
+</html>
